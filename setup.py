@@ -7,11 +7,11 @@ from distutils.core import setup
 
 setup(
         name                = 'python-ICStk'                                        ,
-        version             = '0.0.2'                                               ,
+        version             = '0.0.3'                                               ,
         author              = 'Shane Hutter'                                        ,
         author_email        = 'shane.hutter86@gmail.com'                            ,
         description         = 'Intentropy Creative Studios toolkit Python module'   ,
-        long_description    = open( 'README.md' ).read()                               ,
+        long_description    = open( 'README.md' ).read()                            ,
         license             = open( 'LICENSE' ).read()                              ,
         packages            = [ 
             'ICStk'             , 
