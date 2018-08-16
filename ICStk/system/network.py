@@ -112,7 +112,6 @@ class SshTunnel:
         kill( self.sshTun , SIGTERM )
         if error:
             raise error
-        del self
         return
 
 
