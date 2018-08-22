@@ -327,17 +327,37 @@ def shellPid( command ):
 
 def sshLines( 
         command = ""                , 
-        ip      = ""                , 
+        host    = ""                , 
         port    = DEFAULT_SSH_PORT  ,
+        user    = str()             , #env user for default
         ):
     """
     SSH into IP and execute command, return as lines in list
     """
+    # Check for strong/weak quote usage in string
+    if "\'" in command:
+        remoteCommand   =   'ssh {0} -o StrictHostKeyChecking=no {1} {2} -T \"{3}\"'
+    else:
+        remoteCommand   =   "ssh {0} -o StrictHostKeyChecking=no {1} {2} -T \'{3}\'"
+
+    # Add user and port if needed
+    if user:
+        user = "-l{0}".format( user )
+    if port:
+        port = "-p{0}".format(
+                str( port )
+                )
+
     return shellLines(
-            "ssh -o StrictHostKeyChecking=no "  +
-            ip  +   ' -p'       +   str(port)   +
-            " -T '" + command   + "'"           ,
+            remoteCommand.format(
+                host    ,
+                port    ,
+                user    ,
+                command ,
+                )
             )
+
+    
 
 
 
