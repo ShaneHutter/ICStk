@@ -29,7 +29,7 @@ class SshTunnel:
             self                ,
             remoteHost  = str() ,
             remotePort  = int() ,
-            **kwargs            ,
+            **kwargs
             ):
         """
             Initialize the class
