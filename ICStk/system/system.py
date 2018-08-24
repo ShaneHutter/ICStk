@@ -118,7 +118,7 @@ def issocket(
     """
     return shell( 
             "if [ -S \""        +
-            checkFifo           +
+            checkSocket           +
             "\" ]; then exit; else exit 1 ; fi" ,
             )
 
@@ -137,27 +137,26 @@ def isfifo(
 
 
 def isfile( 
-        checkFifo = str() 
+        checkFile = str() 
         ):
     """ 
-        Determine if a file is a fifo pipe 
-    """
+        Determine if a file is a fifo pipe """
     return shell( 
             "if [ -f \""        +
-            checkFifo           +
+            checkFile           +
             "\" ]; then exit; else exit 1 ; fi" ,
             )
 
 
 
 def isdir( 
-        checkFifo = str() 
+        checkDir = str() 
         ):
     """ 
         Determine if a file is a fifo pipe 
     """
     return shell( 
             "if [ -d \""        +
-            checkFifo           +
+            checkDir           +
             "\" ]; then exit; else exit 1 ; fi" ,
             )
