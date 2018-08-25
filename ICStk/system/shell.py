@@ -330,15 +330,16 @@ def sshLines(
         host    = ""                , 
         port    = DEFAULT_SSH_PORT  ,
         user    = str()             , #env user for default
+        **kwargs                        # kwargs for passing ssh options
         ):
     """
     SSH into IP and execute command, return as lines in list
     """
     # Check for strong/weak quote usage in string
     if "\'" in command:
-        remoteCommand   =   'ssh {0} -o StrictHostKeyChecking=no {1} {2} -T \"{3}\"'
+        remoteCommand   =   'ssh {0} {1} {2} {3} -T \"{4}\"'
     else:
-        remoteCommand   =   "ssh {0} -o StrictHostKeyChecking=no {1} {2} -T \'{3}\'"
+        remoteCommand   =   "ssh {0} {1} {2} {3} -T \'{4}\'"
 
     # Add user and port if needed
     if user:
@@ -347,10 +348,20 @@ def sshLines(
         port = "-p{0}".format(
                 str( port )
                 )
+    if kwargs:
+        options = "-o "
+        for sshOption in kwargs:
+            options += "{0}={1},".format(
+                    sshOption           ,
+                    kwargs[ sshOption ] ,
+                    )
+    else:
+        options = str()
 
     return shellLines(
             remoteCommand.format(
                 host    ,
+                options ,
                 port    ,
                 user    ,
                 command ,
